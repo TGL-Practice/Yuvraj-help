@@ -5,18 +5,16 @@ using UnityEngine;
 public class stoprefe : MonoBehaviour
 {
     public static GameObject refe;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public Transform myTrns;
+    public static Transform stopTrns;
+
+    private void Start()
+	{
+        myTrns = transform;
+        stopTrns = myTrns;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(refe);
-    }
-    private void OnCollisionEnter(Collision collision)
+	private void OnCollisionEnter(Collision collision)
     {
         if(collision.collider.tag == "Player")
         {

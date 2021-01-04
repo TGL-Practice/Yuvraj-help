@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
     float sadWalk = 6;
     float idle = 0;
     public static bool stopwalking = false;
-    public static bool Jump = false;
-    public static bool sadwalk = false;
+    public bool Jump = false;
+    public bool sadwalk = false;
     public static bool freeze = false;
     public static bool yourchance = false;
     public static bool movement = true;
@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
         mycollider = transform.GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
         anim.SetFloat("Animation", Walk);
@@ -40,7 +39,25 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement23 = movement;
+		//if (transform.position.x <= stoprefe.stopTrns.position.x)
+		//{
+		movement23 = movement;
+		//      }
+		//      else
+		//{
+		//          movement23 = true;
+		//}            
+		RaycastHit hitinfo = new RaycastHit();
+		Ray ray = new Ray(transform.position, Vector3.right);
+		if (Physics.Raycast(ray, out hitinfo, 5))
+		{
+			if (hitinfo.collider.tag == "Player")
+			{
+                movement23 = false;
+			}
+		}
+        
+
         if (movement23 == true)
         {
             safe1_click = safe1_clicked;
@@ -54,10 +71,20 @@ public class Player : MonoBehaviour
         if (Jump == true)
         {
             anim.SetFloat("Animation", jump);
+            //Jump = false;
+            //if(Mathf.Abs(transform.position.x - stoprefe.stopTrns.position.x) < 0.5f)
+            //{
+            //    speed = 50;
+            //}
         }
-        if (Jump == true)
+        if (sadwalk == true)
         {
             anim.SetFloat("Animation", sadWalk);
+            //sadwalk = false;
+            //if (Mathf.Abs(transform.position.x - stoprefe.stopTrns.position.x) < 0.5f)
+            //{
+            //    speed = 5;
+            //}
         }
         if (stopwalking == true)
         {
@@ -78,14 +105,12 @@ public class Player : MonoBehaviour
             Debug.Log("oh");
             freeze = true;
         }
-
     }
     public void OnCollisionExit(Collision collision)
     {
         Debug.Log("Spawning");
         if (collision.gameObject.tag == "stop")
         {
-            
             spawner.stopspawn = false;
             movement = true;
         }
@@ -99,7 +124,6 @@ public class Player : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        
         if (other.gameObject.tag == "fre")
         {
             spawner.yourchance = true;

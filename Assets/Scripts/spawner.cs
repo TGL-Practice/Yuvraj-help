@@ -72,13 +72,11 @@ public class spawner : MonoBehaviour
                         startpos.transform.GetChild(0).GetComponent<BoxCollider>().enabled = false;
                         startpos.transform.GetChild(0).transform.parent = null;
                         stopspawn = false;
-                        Player.Jump = true;
+                        stoprefe.refe.transform.GetComponent<Player>().Jump = true;
+                        stoprefe.refe.transform.GetComponent<Player>().sadwalk = false;
+                        //Player.Jump = true;
                         Player.movement = true;
                     }
-                }
-                else
-                {
-
                 }
                 break;
 
@@ -92,13 +90,11 @@ public class spawner : MonoBehaviour
                         startpos.transform.GetChild(0).GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                         startpos.transform.GetChild(0).transform.parent = null;
                         stopspawn = false;
-                        Player.sadwalk = true;
+                        stoprefe.refe.transform.GetComponent<Player>().Jump = false;
+                        stoprefe.refe.transform.GetComponent<Player>().sadwalk = true;
+                        //Player.sadwalk = true;
                         Player.movement = true;
                     }
-                }
-                else
-                {
-
                 }
                 break;
 
